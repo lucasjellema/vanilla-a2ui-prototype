@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2UI Agent Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="app-container">
+        <header>
+            <h1>Agentic UI Demo</h1>
+            <p>Tell the agent what interface you need (e.g., "I need a login form" or "Create a feedback survey").</p>
+        </header>
+
+        <section id="controls">
+            <div class="input-group">
+                <textarea id="agent-goal" placeholder="Type your request here..." aria-label="Agent Prompt" rows="4" cols="80"></textarea>
+                <button id="submit-btn" onclick="triggerAgent()">Request UI</button>
+            </div>
+            <div id="status-indicator">Agent is idle.</div>
+        </section>
+
+        <section id="ui-canvas">
+            <div class="placeholder-text">The agent-generated UI will appear here...</div>
+        </section>
+    </main>
+
+    <script src="renderer.js"></script>
+    
+    <script>
+        async function triggerAgent() {
+            const promptInput = document.getElementById('agent-goal');
+            const status = document.getElementById('status-indicator');
+            const btn = document.getElementById('submit-btn');
+
+            if (!promptInput.value.trim()) return;
+
+            // UI Feedback
+            status.innerText = "Agent is thinking...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/generate-ui', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: promptInput.value })
+                });
+
+                if (!response.ok) throw new Error('Backend failed');
+
+                const schema = await response.json();
+
+                // Call the renderer.js function
+                window.renderA2UI(schema, 'ui-canvas');
+                
+                status.innerText = "UI Generated successfully.";
+            } catch (err) {
+                console.error(err);
+                status.innerText = "Error: Could not reach the agent.";
+            } finally {
+                btn.disabled = false;
+                promptInput.value = ''; // Clear input
+            }
+        }
+
+        // Allow 'Enter' key to trigger the agent
+        document.getElementById('agent-goal').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') triggerAgent();
+        });
+    </script>
+</body>
+</html>
