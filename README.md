@@ -79,6 +79,42 @@ The system supports these UI components:
 - **Input**: Text, number, email, and password fields
 - **Button**: Primary and secondary action buttons
 
+## Adding a New Component (e.g., checkbox)
+
+To add a new component type like `checkbox`, follow these steps:
+
+1. Update the AI component registry contract in `server/server.js` (inside `A2UI_SYSTEM_PROMPT`) with the new definition. For example:
+   - `"checkbox": { "type": "checkbox", "label": string, "id": string, "checked": boolean }
+
+2. Extend the renderer in `client/renderer.js`:
+   ```js
+   checkbox: (props) => {
+       const wrapper = document.createElement('div');
+       wrapper.className = 'a2ui-input-wrapper';
+
+       const label = document.createElement('label');
+       label.setAttribute('for', props.id);
+       label.innerText = props.label;
+
+       const input = document.createElement('input');
+       input.type = 'checkbox';
+       input.id = props.id;
+       input.checked = !!props.checked;
+       input.className = 'a2ui-checkbox';
+
+       wrapper.appendChild(input);
+       wrapper.appendChild(label);
+       return wrapper;
+   },
+   ```
+
+3. Optionally add CSS styles in `client/style.css` for `.a2ui-checkbox` and spacing.
+
+Then restart the server and issue a prompt that includes a checkbox request. For example
+```
+een formulier voor aanmelden voor een event, met naam, email adres en de keuze voor 1 of meer events (Pannenboeken Avond, Schaakfestijn, Pita en Pizza)
+```
+
 ## API Schema
 
 The AI generates responses in this JSON format:
