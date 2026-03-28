@@ -97,8 +97,7 @@ Assistant: {
     { "type": "text", "content": "Login to your account", "level": "h2" },
     { "type": "input", "label": "Email", "placeholder": "you@example.com", "id": "email_field", "inputType": "email" },
     { "type": "input", "label": "Password", "placeholder": "••••••••", "id": "pass_field", "inputType": "password" },
-    { "type": "button", "label": "Login", "action": "submit_login", "variant": "primary" },
-     { "type": "checkbox", "label": string, "id": string, "checked": boolean }
+    { "type": "button", "label": "Login", "action": "submit_login", "variant": "primary" }
   ]
 }
 

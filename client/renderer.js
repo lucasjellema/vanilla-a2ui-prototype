@@ -45,25 +45,7 @@ const componentRegistry = {
             alert(`Executing: ${props.action}`);
         };
         return btn;
-    },
-    checkbox: (props) => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'a2ui-input-wrapper';
-
-        const label = document.createElement('label');
-        label.setAttribute('for', props.id);
-        label.innerText = props.label;
-
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = props.id;
-        input.checked = !!props.checked;
-        input.className = 'a2ui-checkbox';
-
-        wrapper.appendChild(input);
-        wrapper.appendChild(label);
-        return wrapper;
-    },
+    }
 };
 
 /**
