@@ -20,6 +20,39 @@
     align-items: flex-end;
 }
 
+.a2ui-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.a2ui-input-wrapper label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.a2ui-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    accent-color: #4a90e2;
+    margin: 0;
+}
+
+.a2ui-checkbox:checked {
+    border-color: #4a90e2;
+    background-color: #4a90e2;
+}
+
+.a2ui-checkbox + label {
+    margin-left: 0.35rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
 /* Typography Styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
