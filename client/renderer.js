@@ -71,6 +71,11 @@ function renderA2UI(schema, targetElementId = 'ui-canvas') {
             container.appendChild(builder(comp));
         } else {
             console.warn(`A2UI Warning: Component type "${comp.type}" not found in registry.`);
+            // add placeholder for unknown component
+            const placeholder = document.createElement('div');
+            placeholder.className = 'a2ui-placeholder';
+            placeholder.innerText = `Unknown component: ${comp.type}`;
+            container.appendChild(placeholder);
         }
     });
 
