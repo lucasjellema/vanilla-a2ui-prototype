@@ -43,10 +43,30 @@ const componentRegistry = {
         btn.onclick = () => {
             console.log(`A2UI Action Triggered: ${props.action}`);
             alert(`Executing: ${props.action}`);
+            collectInputValues(); // Collect input values on button click for demonstration
         };
         return btn;
     }
 };
+
+function collectInputValues(targetElementId = 'ui-canvas') {
+    const canvas = document.getElementById(targetElementId);
+    if (!canvas) return {};
+
+    const values = {};
+    const inputs = canvas.querySelectorAll('.a2ui-input');
+    
+    inputs.forEach(input => {
+        if (input.id) {
+            values[input.id] = input.value;
+        }
+    });
+
+    console.log('Collected A2UI Input Values:', values);
+    return values;
+}
+
+window.collectInputValues = collectInputValues;
 
 /**
  * Main function to turn the A2UI JSON into HTML
