@@ -16,7 +16,7 @@ const componentRegistry = {
     input: (props) => {
         const wrapper = document.createElement('div');
         wrapper.className = 'a2ui-input-wrapper';
-        
+
         const label = document.createElement('label');
         label.innerText = props.label;
         label.setAttribute('for', props.id);
@@ -38,14 +38,32 @@ const componentRegistry = {
         const btn = document.createElement('button');
         btn.innerText = props.label;
         btn.className = `a2ui-button ${props.variant || 'primary'}`;
-        
+
         // In a real app, 'action' would map to a specific function
         btn.onclick = () => {
             console.log(`A2UI Action Triggered: ${props.action}`);
             alert(`Executing: ${props.action}`);
         };
         return btn;
-    }
+    },
+    checkbox: (props) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'a2ui-input-wrapper';
+
+        const label = document.createElement('label');
+        label.setAttribute('for', props.id);
+        label.innerText = props.label;
+
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = props.id;
+        input.checked = !!props.checked;
+        input.className = 'a2ui-checkbox';
+
+        wrapper.appendChild(input);
+        wrapper.appendChild(label);
+        return wrapper;
+    },
 };
 
 /**
@@ -60,8 +78,8 @@ function renderA2UI(schema, targetElementId = 'ui-canvas') {
 
     // 2. Create the layout container
     const container = document.createElement('div');
-    container.className = schema.layout === 'horizontal' 
-        ? 'a2ui-container-horizontal' 
+    container.className = schema.layout === 'horizontal'
+        ? 'a2ui-container-horizontal'
         : 'a2ui-container-vertical';
 
     // 3. Map components from schema to registry
